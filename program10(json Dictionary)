@@ -1,0 +1,22 @@
+import json
+from difflib import get_close_matches
+words_data = json.load(open("words.json"))
+def word_meaning(word):
+    word = word.upper().lower()
+    if word in words_data:
+        return words_data[word]
+    elif len(get_close_matches(word, words_data.keys())) >0:
+        similar_words_list = list(map(str, get_close_matches(word, words_data.keys())))
+        ans=input(" Did you mean %s instead? Enter 'Y' If yes or 'N' if No " % similar_words_list)
+        if ans.lower() == "y":
+            index = input("Enter the position number of word to select the word. Ex 1 or 2 or 3 :")
+            return word_meaning(similar_words_list[int(index)-1])
+        elif ans.lower() == 'n':
+            print("Word Doesnt exists. Please double check it!!!")
+        else:
+            print("Sorry, We don't understand you!!!!")
+    else:
+        print("Sorry, We don't understand you!!!!")
+word = input("Enter a word to know its meaning : ")
+meaning = word_meaning(word)
+print("The meaning of the word is : ", meaning)
