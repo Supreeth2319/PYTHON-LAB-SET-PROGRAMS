@@ -1,0 +1,5 @@
+a = input("Enter the string:")
+b = a.find("@")
+c = a.find("#")
+print("The original string is:",a)
+print("The substring between @ and # is:",a[b+1:c])
